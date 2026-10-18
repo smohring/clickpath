@@ -1,0 +1,11 @@
+[
+  { "Type": "Navigate", "Url": "https://example.org/releases" },
+  {
+    "Type": "ForEachLink", "Target": "Link", "MatchMode": "StartsWith", "Text": "Release ",
+    "TimeoutMs": 10000, "Paginate": true, "MaxPages": 20, "ContinueOnError": true,
+    "Children": [
+      { "Type": "Click", "Target": "Clickable", "Text": "Show download links" },
+      { "Type": "Extract", "Target": "Link", "MatchMode": "StartsWith", "Text": "Download " }
+    ]
+  }
+]

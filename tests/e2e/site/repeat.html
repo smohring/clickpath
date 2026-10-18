@@ -1,0 +1,12 @@
+<!doctype html><meta charset="utf-8"><title>Repeat click</title>
+<h1>Ad first</h1>
+<p><a href="#" id="go">Get file</a></p>
+<script>
+  // the first click only opens an ad window; the second click runs the real action
+  let clicks = 0;
+  document.getElementById('go').addEventListener('click', e => {
+    e.preventDefault();
+    if (++clicks === 1) window.open('ad.html');
+    else document.title = 'Real action';
+  });
+</script>

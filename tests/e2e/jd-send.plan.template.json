@@ -1,0 +1,7 @@
+[
+  { "Type": "Navigate", "Url": "{SITE}/jd.html" },
+  {
+    "Type": "SendToJDownloader", "Target": "Link", "MatchMode": "Contains", "Text": "Clickpath test file",
+    "Package": "Clickpath test", "Autostart": false
+  }
+]

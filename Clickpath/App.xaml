@@ -1,0 +1,9 @@
+<Application x:Class="Clickpath.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ThemeMode="System">
+    <Application.Resources>
+        <FontFamily x:Key="IconFont">Segoe Fluent Icons, Segoe MDL2 Assets</FontFamily>
+        <BooleanToVisibilityConverter x:Key="B2V" />
+    </Application.Resources>
+</Application>

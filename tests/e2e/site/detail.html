@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><title>Detail</title>
+<h1>Detail</h1>
+<a id="f" href="">Final link</a>
+<script>
+  const q = new URLSearchParams(location.search);
+  document.getElementById('f').href = 'final.html?n=' + q.get('n') + '&via=' + (q.get('via') || 'anchor');
+  document.getElementById('f').textContent = 'Final link ' + q.get('n') + ' (' + (q.get('via') || 'anchor') + ')';
+</script>

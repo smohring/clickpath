@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8"><title>List without addresses for paging</title>
+<h1>List by script</h1>
+<ul id="list"></ul>
+<p><button id="nx">Next page</button></p>
+<script>
+  // two "pages" of links; the button has no address, it swaps the list content after a short delay
+  const pages = [['Spa 1.1', 'Spa 1.2', 'Spa 1.3'], ['Spa 2.1', 'Spa 2.2', 'Spa 2.3']];
+  let page = 0;
+  const list = document.getElementById('list'), next = document.getElementById('nx');
+  function show() {
+    list.innerHTML = pages[page].map((t, i) => '<li><a href="detail.html?n=' + (page * 10 + i + 40) + '">' + t + '</a></li>').join('');
+    next.disabled = page === pages.length - 1;
+  }
+  next.addEventListener('click', () => setTimeout(() => { page++; show(); }, 300));
+  show();
+</script>

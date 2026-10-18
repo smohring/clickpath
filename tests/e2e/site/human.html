@@ -1,0 +1,15 @@
+<!doctype html><meta charset="utf-8"><title>Human mouse</title>
+<style>a { position: absolute; padding: 14px 28px; border: 1px solid #888 } #jump { left: 80px; top: 120px } #walk { left: 520px; top: 300px }</style>
+<a href="#" id="jump">Jump</a>
+<a href="#" id="walk">Walk</a>
+<script>
+  // counts the pointer movements the page saw since the previous click, and reports them in the title
+  let moves = 0;
+  document.addEventListener('mousemove', () => moves++);
+  for (const id of ['jump', 'walk'])
+    document.getElementById(id).addEventListener('click', e => {
+      e.preventDefault();
+      document.title = id + '-moves:' + moves;
+      moves = 0;
+    });
+</script>

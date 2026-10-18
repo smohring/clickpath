@@ -1,0 +1,160 @@
+[
+  { "Type": "Navigate", "Url": "{SITE}/index.html" },
+  {
+    "Type": "ForEachLink", "Target": "Link", "MatchMode": "StartsWith", "Text": "Item ", "TimeoutMs": 10000, "ContinueOnError": true,
+    "Children": [
+      { "Type": "RunScript", "Script": "'var-check: {text}'" },
+      {
+        "Type": "IfFound", "Target": "Anything", "Text": "Item page", "TimeoutMs": 2000,
+        "Children": [ { "Type": "RunScript", "Script": "'if-branch'" } ]
+      },
+      {
+        "Type": "IfFound", "Target": "Anything", "Text": "no such text xyz", "TimeoutMs": 1000,
+        "Children": [ { "Type": "RunScript", "Script": "'wrong-branch'" } ]
+      },
+      {
+        "Type": "IfFound", "Target": "Anything", "Text": "no such text xyz", "TimeoutMs": 1000, "Negate": true,
+        "Children": [ { "Type": "RunScript", "Script": "'not-branch'" } ]
+      },
+      { "Type": "Click", "Target": "Link", "Text": "Open with Downloader", "NewTab": true },
+      { "Type": "Click", "Target": "Clickable", "Text": "Hand over via script", "NewTab": true },
+      { "Type": "Click", "Target": "Link", "Text": "Get container", "NewTab": true },
+      { "Type": "Click", "Target": "Clickable", "Text": "Show more" },
+      { "Type": "Click", "Target": "Link", "Text": "Open detail", "NewTab": true },
+      { "Type": "MoveMouse", "MoveMs": 1000 },
+      { "Type": "Extract", "Target": "Link", "MatchMode": "Wildcard", "Text": "Final link * (anchor)" },
+      { "Type": "CloseTab" },
+      { "Type": "Click", "Target": "Anything", "MatchMode": "Exactly", "Text": "Open via script", "NewTab": true },
+      { "Type": "Extract", "Target": "Link", "MatchMode": "Regex", "Text": "^Final link \\d \\(script\\)$" }
+    ]
+  },
+  { "Type": "Navigate", "Url": "{SITE}/any.html" },
+  { "Type": "ClickPage", "NewTab": true },
+  { "Type": "Extract", "Target": "Link", "MatchMode": "StartsWith", "Text": "Final link" },
+  { "Type": "CloseTab" },
+  { "Type": "Navigate", "Url": "{SITE}/any.html" },
+  { "Type": "ClickPage", "CloseNewWindow": true },
+  { "Type": "RunScript", "Script": "document.title" },
+  { "Type": "Navigate", "Url": "{SITE}/any.html" },
+  { "Type": "ClickPage" },
+  { "Type": "RunScript", "Script": "document.title" },
+  { "Type": "Navigate", "Url": "{SITE}/selfclose.html" },
+  { "Type": "ClickPage" },
+  { "Type": "Delay", "DelayMs": 2000 },
+  { "Type": "RunScript", "Script": "'after-selfclose'" },
+  { "Type": "Navigate", "Url": "{SITE}/repeat.html" },
+  { "Type": "Click", "Target": "Link", "Text": "Get file", "RepeatUntilNoWindow": true },
+  { "Type": "RunScript", "Script": "document.title" },
+  { "Type": "Navigate", "Url": "{SITE}/human.html" },
+  { "Type": "Click", "Target": "Link", "Text": "Jump" },
+  { "Type": "RunScript", "Script": "document.title" },
+  { "Type": "Click", "Target": "Link", "Text": "Walk", "HumanMouse": true },
+  { "Type": "RunScript", "Script": "document.title" },
+  { "Type": "Navigate", "Url": "{SITE}/newpage.html" },
+  { "Type": "MoveMouse", "MoveMs": 20000, "EndOnNewPage": true },
+  { "Type": "RunScript", "Script": "'after-newpage'" },
+  { "Type": "Navigate", "Url": "{SITE}/newwindow.html" },
+  { "Type": "Delay", "DelayMs": 20000, "EndOnNewPage": true },
+  { "Type": "RunScript", "Script": "'after-newwindow'" },
+  { "Type": "Navigate", "Url": "{SITE}/swap.html" },
+  { "Type": "MoveMouse", "MoveMs": 20000, "EndOnNewPage": true },
+  { "Type": "RunScript", "Script": "'after-swap'" },
+  { "Type": "Navigate", "Url": "{SITE}/emptyclicks.html" },
+  { "Type": "MoveMouse", "MoveMs": 12000, "RandomClicks": true, "ClickEveryMs": 2000 },
+  { "Type": "RunScript", "Script": "document.title" },
+  { "Type": "Navigate", "Url": "{SITE}/plist1.html" },
+  {
+    "Type": "ForEachLink", "Target": "Link", "MatchMode": "StartsWith", "Text": "Entry ", "Paginate": true, "MaxPages": 5,
+    "Children": [ { "Type": "RunScript", "Script": "'all: {text}'" } ]
+  },
+  { "Type": "Navigate", "Url": "{SITE}/plist1.html" },
+  {
+    "Type": "ForEachLink", "Target": "Link", "MatchMode": "StartsWith", "Text": "Entry ", "Paginate": true, "MaxPages": 2,
+    "Children": [ { "Type": "RunScript", "Script": "'max: {text}'" } ]
+  },
+  { "Type": "Navigate", "Url": "{SITE}/plist1.html" },
+  {
+    "Type": "ForEachLink", "Target": "Link", "MatchMode": "StartsWith", "Text": "Entry ", "Paginate": true,
+    "StartText": "Entry 2.2", "StartMode": "Exactly", "EndText": "Entry 3.1", "EndMode": "Exactly",
+    "Children": [ { "Type": "RunScript", "Script": "'range: {text}'" } ]
+  },
+  { "Type": "Navigate", "Url": "{SITE}/pspa.html" },
+  {
+    "Type": "ForEachLink", "Target": "Link", "MatchMode": "StartsWith", "Text": "Spa ", "Paginate": true, "NextPageText": "Next page",
+    "Children": [ { "Type": "RunScript", "Script": "'spa: {text}'" } ]
+  },
+  { "Type": "Navigate", "Url": "{SITE}/mirrors.html?order=rg,dd,kat" },
+  { "Type": "Click", "Target": "Clickable", "Text": "Download Mirror", "NearText": "alphahost" },
+  { "Type": "Click", "Target": "Clickable", "Text": "Download von AlphaHost" },
+  { "Type": "RunScript", "Script": "'near: ' + document.title" },
+  { "Type": "Navigate", "Url": "{SITE}/mirrors.html?order=kat,rg,dd" },
+  {
+    "Type": "ForEachElement", "Target": "Clickable", "MatchMode": "StartsWith", "Text": "Download Mirror",
+    "Children": [
+      {
+        "Type": "IfFound", "Target": "Clickable", "Text": "Download von AlphaHost", "TimeoutMs": 1500,
+        "Children": [
+          { "Type": "Click", "Target": "Clickable", "Text": "Download von AlphaHost" },
+          { "Type": "RunScript", "Script": "'loop1: ' + document.title" },
+          { "Type": "StopRepeating" }
+        ]
+      }
+    ]
+  },
+  { "Type": "RunScript", "Script": "'after-loop'" },
+  { "Type": "Navigate", "Url": "{SITE}/mirrors.html?order=kat,rg" },
+  {
+    "Type": "ForEachElement", "Target": "Clickable", "MatchMode": "StartsWith", "Text": "Download Mirror",
+    "Children": [
+      { "Type": "RunScript", "Script": "'idx: {index}'" },
+      {
+        "Type": "IfFound", "Target": "Clickable", "Text": "Download von AlphaHost", "TimeoutMs": 1000,
+        "Children": [ { "Type": "RunScript", "Script": "'loop2: wrong'" }, { "Type": "StopRepeating" } ]
+      }
+    ]
+  },
+  { "Type": "RunScript", "Script": "'after-nodd'" },
+  { "Type": "Navigate", "Url": "{SITE}/mirrors.html?order=kat,dd,rg&open=1" },
+  {
+    "Type": "ForEachElement", "Target": "Clickable", "MatchMode": "StartsWith", "Text": "Download Mirror",
+    "Children": [
+      { "Type": "Click", "Target": "Link", "Text": "Download von AlphaHost", "NewTab": true, "TimeoutMs": 1500 },
+      { "Type": "StopRepeating" }
+    ]
+  },
+  { "Type": "RunScript", "Script": "'kept: ' + location.search" },
+  { "Type": "CloseTab" },
+  { "Type": "RunScript", "Script": "'back: ' + location.search" },
+  { "Type": "Navigate", "Url": "{SITE}/mirrors.html?order=kat,dd,rg" },
+  {
+    "Type": "ForEachElement", "Target": "Clickable", "MatchMode": "StartsWith", "Text": "Download Mirror",
+    "UntilText": "Download von AlphaHost", "UntilWaitMs": 1200,
+    "Children": [ { "Type": "RunScript", "Script": "'round: {index}'" } ]
+  },
+  { "Type": "Click", "Target": "Clickable", "Text": "Download von AlphaHost" },
+  { "Type": "RunScript", "Script": "'until: ' + document.title" },
+  { "Type": "Navigate", "Url": "{SITE}/mirrors.html?order=kat,rg" },
+  {
+    "Type": "ForEachElement", "Target": "Clickable", "MatchMode": "StartsWith", "Text": "Download Mirror",
+    "UntilText": "Download von AlphaHost", "UntilWaitMs": 600,
+    "Children": [ { "Type": "RunScript", "Script": "'untilnone: {index}'" } ]
+  },
+  {
+    "Type": "ForEachListedLink",
+    "Links": "# my list\n{SITE}/detail.html?n=71\n\nSome title {SITE}/detail.html?n=72 \nnot a link\n{SITE}/detail.html?n=73",
+    "Children": [ { "Type": "RunScript", "Script": "'listed: ' + location.search" } ]
+  },
+  { "Type": "Navigate", "Url": "{SITE}/plist1.html" },
+  {
+    "Type": "ForEachLink", "Target": "Link", "MatchMode": "StartsWith", "Text": "Entry ", "Paginate": true,
+    "Children": [ { "Type": "RunScript", "Script": "'keep: {text}'" }, { "Type": "CloseAllTabs" } ]
+  },
+  { "Type": "RunScript", "Script": "'keepend: ' + document.title" },
+  { "Type": "CloseAllTabs" },
+  { "Type": "Navigate", "Url": "{SITE}/any.html" },
+  { "Type": "ClickPage" },
+  { "Type": "Navigate", "Url": "{SITE}/any.html" },
+  { "Type": "ClickPage" },
+  { "Type": "CloseAllTabs" },
+  { "Type": "RunScript", "Script": "location.href" }
+]

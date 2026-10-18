@@ -1,0 +1,4 @@
+* text=auto
+*.ico binary
+*.png binary
+*.dlc text eol=lf

@@ -1,0 +1,6 @@
+<!doctype html><meta charset="utf-8"><title>Self-closing popup</title>
+<h1>Click anywhere</h1>
+<p>The first click opens a popup that closes itself, like a Click'n'Load confirmation page.</p>
+<script>
+  document.addEventListener('click', () => window.open('selfclose-popup.html'), { once: true });
+</script>

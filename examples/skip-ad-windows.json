@@ -1,0 +1,6 @@
+[
+  { "Type": "Navigate", "Url": "https://example.org/download" },
+  { "Type": "Click", "Target": "Link", "MatchMode": "Contains", "Text": "Download", "RepeatUntilNoWindow": true, "TimeoutMs": 10000 },
+  { "Type": "Delay", "DelayMs": 3000, "EndOnNewPage": true },
+  { "Type": "Extract", "Target": "Link", "MatchMode": "StartsWith", "Text": "http" }
+]

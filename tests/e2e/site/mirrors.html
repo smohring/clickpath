@@ -1,0 +1,32 @@
+<!doctype html><meta charset="utf-8"><title>Mirrors</title>
+<style>.row { display: flex; gap: 12px; align-items: center; margin: 10px 0 } .row img { width: 120px; height: 36px; background: #ccd }
+  .mirror { padding: 10px 24px; background: #59f; color: #fff; text-decoration: none } .reveal { margin: 0 0 0 140px }</style>
+<h1>Pick a mirror</h1>
+<div id="list"></div>
+<script>
+  // like a download page: three hosters, identified by their logo; a click on "Download Mirror N" shows "Download von <hoster>" a moment later
+  const hosts = { dd: ['AlphaHost', 'logos/alphahost.png'], rg: ['BetaHost', 'logos/betahost.png'], kat: ['GammaHost', 'logos/gammahost.png'] };
+  const params = new URLSearchParams(location.search);
+  const order = (params.get('order') || 'dd,rg,kat').split(',').filter(k => hosts[k]);
+  const opensTab = params.get('open') === '1';   // the revealed link opens the hoster page in a new tab
+  const list = document.getElementById('list');
+  order.forEach((key, i) => {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = '<img src="' + hosts[key][1] + '" alt=""><a class="mirror" href="#">Download Mirror ' + (i + 1) + '</a><img src="' + hosts[key][1] + '" alt="">';
+    list.appendChild(row);
+    row.querySelector('.mirror').addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.reveal').forEach(n => n.remove());
+      setTimeout(() => {
+        const p = document.createElement('p');
+        p.className = 'reveal';
+        p.innerHTML = opensTab
+          ? '<a href="detail.html?n=77" target="_blank">&raquo; Download von ' + hosts[key][0] + '</a>'
+          : '<a href="#">&raquo; Download von ' + hosts[key][0] + '</a>';
+        if (!opensTab) p.querySelector('a').addEventListener('click', ev => { ev.preventDefault(); document.title = 'picked:' + key; });
+        row.after(p);
+      }, 300);
+    });
+  });
+</script>

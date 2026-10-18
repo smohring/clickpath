@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><title>clicks:0;bad:0</title>
+<style>body { min-height: 100vh; margin: 0 } a, button { position: absolute; padding: 10px 20px } #a { left: 40px; top: 60px } #b { left: 400px; top: 200px } #c { left: 700px; top: 120px }</style>
+<h1 style="margin:16px">Click into the void</h1>
+<a href="#" id="a">Link A</a>
+<button id="b">Button B</button>
+<a href="#" id="c" style="cursor:pointer">Link C</a>
+<script>
+  // counts clicks on empty page; any click on something clickable is reported as "bad"
+  let clicks = 0, bad = 0;
+  document.addEventListener('click', e => {
+    if (e.target.closest('a, button')) bad++; else clicks++;
+    document.title = 'clicks:' + clicks + ';bad:' + bad;
+  });
+</script>

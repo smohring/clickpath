@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><title>Item</title>
+<h1 id="h"></h1>
+<a href="#" onclick="setTimeout(() => { document.getElementById('hid').style.display = 'block'; }, 600); return false;">Show more</a>
+<p><a id="hid" style="display:none" target="_blank" href="">Open detail</a></p>
+<p><button onclick="window.open('detail.html?n=' + n + '&via=script')">Open via script</button></p>
+<p><a href="lf-e2e-sample.dlc" download>Get container</a></p>
+<p><a id="ext" target="_blank" href="">Open with Downloader</a>
+   <button onclick="window.open('ms-settings:about?item=' + n + '&via=script')">Hand over via script</button></p>
+<script>
+  const n = new URLSearchParams(location.search).get('n');
+  document.getElementById('h').textContent = 'Item page ' + n;
+  document.getElementById('hid').href = 'detail.html?n=' + n;
+  document.getElementById('ext').href = 'ms-settings:about?item=' + n;
+</script>
