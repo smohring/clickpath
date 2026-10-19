@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- uBlock Origin is downloaded automatically on the first start (needs internet access once); `tools/get-ublock.ps1` is gone, it was not part of the release zip.
+
 ## 1.0.0
 
 First public release.

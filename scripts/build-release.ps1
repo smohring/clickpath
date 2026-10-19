@@ -1,4 +1,4 @@
-param([string]$Version = '1.0.0')
+param([string]$Version = '1.0.1')
 
 # Publishes the app (framework-dependent, win-x64) and zips it to dist/Clickpath-<version>-win-x64.zip.
 # PathMap keeps the local build folder out of the binaries.

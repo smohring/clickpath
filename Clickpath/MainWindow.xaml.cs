@@ -239,7 +239,7 @@ public partial class MainWindow : Window
         AppSettings.Save(AppSettings.DefaultPath, settings);
         var count = await _host.SetBlockAdsAsync(on);
         Log(count == 0
-            ? $"Ad blocker {(on ? "on" : "off")}, but no extension is installed - run tools/get-ublock.ps1 (puts uBlock Origin into {BrowserHost.ExtensionsFolder})"
+            ? $"Ad blocker {(on ? "on" : "off")}, but uBlock Origin is not installed - it is downloaded at the next start (needs internet access; see app.log), or unpack it into {BrowserHost.ExtensionsFolder}"
             : $"Ad blocker {(on ? "on" : "off")} ({count} extension(s))");
     }
 

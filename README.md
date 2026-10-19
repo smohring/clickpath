@@ -19,8 +19,8 @@ and conditions.
   **Add to link list**: it goes into the selected link list, else the one used last, else the first in the plan.
 - **Repeat for each link**: open every matching link in its own tab, run the steps below it, close the tab - over **all pages**
   of a paginated list (the "next" button is detected automatically) and optionally limited to a **range** (start and end link).
-- **Block advertising with uBlock Origin**: run `tools\get-ublock.ps1` once (downloads uBlock Origin into `%LocalAppData%\Clickpath\extensions`),
-  restart, and switch it on with the shield button next to the address bar (or `--adblock on|off` on the command line). A right click on the
+- **Block advertising with uBlock Origin**: downloaded automatically on the first start (into `%LocalAppData%\Clickpath\extensions`; delete the
+  `ublock-origin` folder there to fetch a newer version). Switch it on with the shield button next to the address bar (or `--adblock on|off` on the command line). A right click on the
   shield opens uBlock's settings, filter lists, own filters and logger. Plans can behave differently with it on, so unattended runs should pin the switch.
 - **See what a run is doing**: the step being executed is highlighted in the list (the list scrolls along), a status line under the
   playback buttons names it, and pauses, mouse moves and waits show a countdown bar with the time left (or the time until the timeout).

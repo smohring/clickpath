@@ -32,7 +32,7 @@ public sealed class BrowserHost(TabControl tabs)
     /// <summary>Unattended runs cancel hand-overs to other apps (nobody is there to answer the system prompt).</summary>
     public bool CancelExternalLaunches { get; set; }
 
-    /// <summary>Folder whose sub-folders each hold one unpacked browser extension (manifest.json inside): uBlock Origin, see tools\get-ublock.ps1.</summary>
+    /// <summary>Folder whose sub-folders each hold one unpacked browser extension (manifest.json inside): uBlock Origin, downloaded by <see cref="UBlockInstaller"/>.</summary>
     public static string ExtensionsFolder { get; } = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Clickpath", "extensions");
 
@@ -106,9 +106,10 @@ public sealed class BrowserHost(TabControl tabs)
         return tab;
     }
 
-    /// <summary>Adds every extension in <see cref="ExtensionsFolder"/> to the profile, each switched on or off by <see cref="BlockAds"/>.</summary>
+    /// <summary>Downloads uBlock Origin first if it is missing (not in an unattended run with the blocker off), then adds every extension in <see cref="ExtensionsFolder"/> to the profile, each switched on or off by <see cref="BlockAds"/>.</summary>
     async Task<List<CoreWebView2BrowserExtension>> InstallExtensionsAsync(CoreWebView2Profile profile)
     {
+        if (BlockAds || !CancelExternalLaunches) await UBlockInstaller.EnsureInstalledAsync();
         var installed = new List<CoreWebView2BrowserExtension>();
         var folders = Directory.Exists(ExtensionsFolder)
             ? Directory.GetDirectories(ExtensionsFolder).Where(d => File.Exists(Path.Combine(d, "manifest.json")))

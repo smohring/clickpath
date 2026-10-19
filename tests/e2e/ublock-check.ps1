@@ -1,5 +1,5 @@
-# MANUAL check: is uBlock Origin really blocking inside Clickpath's WebView2? Not part of run.ps1 (needs the extension installed
-# with tools\get-ublock.ps1 and the network). Asks uBlock's own logger what it decided for three requests; prints the log lines.
+# MANUAL check: is uBlock Origin really blocking inside Clickpath's WebView2? Not part of run.ps1 (needs the network: the app
+# downloads the extension on its first start). Asks uBlock's own logger what it decided for three requests; prints the log lines.
 # Keep this file ASCII: PowerShell 5.1 reads scripts as ANSI.
 param([string]$Exe = (Join-Path $PSScriptRoot '..\..\Clickpath\bin\Debug\net10.0-windows\Clickpath.exe'))
 $ErrorActionPreference = 'Stop'
@@ -19,7 +19,7 @@ function Invoke-Plan($steps, $name) {
 # 1. a first start tells us the extension id (it is derived from the folder path)
 Invoke-Plan @(@{ Type = 'Navigate'; Url = 'about:blank' }) 'id' | Out-Null
 $loaded = Get-Content $appLog | Select-String 'extension uBlock Origin \(([a-p]{32})\) loaded' | Select-Object -Last 1
-if (-not $loaded) { throw 'uBlock Origin was not loaded - run tools\get-ublock.ps1 first and read the "extension" lines in app.log' }
+if (-not $loaded) { throw 'uBlock Origin was not loaded - read the "uBlock Origin" and "extension" lines in app.log (download failed? no network?)' }
 $id = $loaded.Matches[0].Groups[1].Value
 $dashboard = "chrome-extension://$id/dashboard.html"
 
